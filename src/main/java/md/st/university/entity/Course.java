@@ -28,7 +28,7 @@ public class Course implements Identification<Integer> {
 	private Date startDate;
 	@Column(name = "endDate")
 	private Date endDate;
-	
+	@ManyToMany(cascade=CascadeType.ALL, mappedBy="courses")
 	private Set<Student> students;
 	
 	

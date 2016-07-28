@@ -26,6 +26,7 @@ public class Address implements Identification<Integer> {
 	private String nameAddress;
     @Column(name = "nrPhone")
 	private String nrPhone;
+    @OneToOne(cascade=CascadeType.ALL)
     private Student student;
 	
 	
@@ -65,7 +66,7 @@ public class Address implements Identification<Integer> {
 		return this;
 	}
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	
 	@JoinColumn(name = "student_id")
 	public Student getStudent() {
 		return student;

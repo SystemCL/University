@@ -32,6 +32,7 @@ public class Student implements Identification<Integer> {
 	@ManyToOne
 	@JoinColumn(name = "group_id")
 	private Group group;
+	@ManyToMany(cascade=CascadeType.ALL)
 	private Set<Course> courses;
 
         /*
@@ -89,6 +90,14 @@ public class Student implements Identification<Integer> {
 	public Date getEnrolment_date() {
 		return enrolment_date;
 	}
+	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
 
 	public void setEnrolment_date(Date enrolment_date) {
 		this.enrolment_date = enrolment_date;
@@ -114,15 +123,13 @@ public class Student implements Identification<Integer> {
 		return this;
 	}
 	
-	public Group getGroup() {
-		return group;
-	}
-
-	public void setGroup(Group group) {
+	public Group group(Group group){
 		this.group = group;
+		return group;		
 	}
 	
-	@ManyToMany(cascade=CascadeType.ALL)
+	
+	
 	@JoinTable(name="course_student", joinColumns = @JoinColumn(name="student_id"), inverseJoinColumns=@JoinColumn(name="course_id"))
 	public Set<Course> getCourses() {
 		return courses;
