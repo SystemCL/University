@@ -7,7 +7,7 @@
 		</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password"></property>
-		<property name="hbm2ddl.auto">update</property>  <!-- pentru a crea automat baza de date -->
+		<property name="hbm2ddl.auto">update</property>  <!-- pentru a crea automat baza de date si a se face update ulterior-->
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
