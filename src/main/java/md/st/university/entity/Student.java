@@ -1,10 +1,16 @@
 package md.st.university.entity;
 
 import java.util.Date;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import md.st.university.dao.Identification;
 
@@ -23,6 +29,10 @@ public class Student implements Identification<Integer> {
 	private int age;
 	@Column(name = "enrolment_date")
 	private Date enrolment_date;
+	@ManyToOne
+	@JoinColumn(name = "group_id")
+	private Group group;
+	private Set<Course> courses;
 
         /*
 		 * if (annotation instanceof Entity) { Entity entity = (Entity)
@@ -42,6 +52,7 @@ public class Student implements Identification<Integer> {
 
 
 	// public Integer group_id;
+
 
 	public Integer getId() {
 		return id;
@@ -103,6 +114,23 @@ public class Student implements Identification<Integer> {
 		return this;
 	}
 	
+	public Group getGroup() {
+		return group;
+	}
+
+	public void setGroup(Group group) {
+		this.group = group;
+	}
+	
+	@ManyToMany(cascade=CascadeType.ALL)
+	@JoinTable(name="course_student", joinColumns = @JoinColumn(name="student_id"), inverseJoinColumns=@JoinColumn(name="course_id"))
+	public Set<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(Set<Course> courses) {
+		this.courses = courses;
+	}
 	
 	public Student build() {
 		Student student = new Student();
@@ -110,6 +138,8 @@ public class Student implements Identification<Integer> {
 		student.setLastName(lastName);
 		student.setAge(age);
 		student.setEnrolment_date(enrolment_date);
+		student.setGroup(group);
+		student.setCourses(courses);
 		return student;
 
 	}
@@ -120,7 +150,9 @@ public class Student implements Identification<Integer> {
 	           " firstName: " +firstName + "\n" +
 				" lastName: " + lastName + "\n" +
 	           " age: " + age + "\n" +
-				" enrolmentDate: "+ enrolment_date + "\n\n";
+				" enrolmentDate: "+ enrolment_date + "\n"+
+	           " group: "+ group + "\n"+
+				"courses: "+ courses + "\n\n";
 	}
 
 }
